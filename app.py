@@ -5,7 +5,7 @@ from datetime import datetime
 
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="AUSIEX · SME Voice Survey",
+    page_title="SME Voice Survey",
     page_icon="✦",
     layout="centered",
 )
@@ -127,7 +127,7 @@ STYLE_QUESTIONS = [
      "question": "How do you position yourself in your writing?",
      "options": [
          "Strong personal voice — 'I think…', 'In my view…'",
-         "Institutional voice — 'AUSIEX believes…', 'The data shows…'",
+         "Institutional voice — 'The data shows…', 'Our research suggests…'",
          "Detached analyst — let the evidence speak",
          "Collaborative — 'We are seeing…', 'Our clients…'",
      ]},
@@ -205,8 +205,9 @@ def progress_bar():
         unsafe_allow_html=True,
     )
 
+
 def header():
-    st.markdown('<p class="step-label">AUSIEX · Voice Intelligence</p>', unsafe_allow_html=True)
+    st.markdown('<p class="step-label">Voice Intelligence Survey</p>', unsafe_allow_html=True)
     progress_bar()
     st.markdown("---")
 
@@ -231,7 +232,7 @@ There are no right answers. The more honest you are, the more authentic the gene
 
 def show_about():
     st.markdown("## About you")
-    st.caption("Tell us who you are and your role at AUSIEX.")
+    st.caption("Tell us who you are and your role.")
 
     c1, c2 = st.columns(2)
     with c1:
@@ -246,7 +247,7 @@ def show_about():
     c3, c4 = st.columns(2)
     with c3:
         st.session_state.email = st.text_input("Email (optional)", value=st.session_state.email,
-                                                placeholder="you@ausiex.com.au")
+                                                placeholder="you@example.com")
     with c4:
         options = ["", "0–2 years", "3–5 years", "6–10 years", "11–20 years", "20+ years"]
         st.session_state.years_experience = st.selectbox(
@@ -399,7 +400,7 @@ def show_review():
 
 
 def show_success():
-    st.markdown('<p class="step-label">AUSIEX · Voice Intelligence</p>', unsafe_allow_html=True)
+    st.markdown('<p class="step-label">Voice Intelligence Survey</p>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("## ✦ Profile saved.")
     st.success(
@@ -414,7 +415,7 @@ def show_success():
 
 # ── Admin page ─────────────────────────────────────────────────────────────────
 def page_admin():
-    st.markdown('<p class="step-label">AUSIEX · Voice Intelligence · Admin</p>', unsafe_allow_html=True)
+    st.markdown('<p class="step-label">Voice Intelligence · Admin</p>', unsafe_allow_html=True)
     st.markdown("## SME Profiles")
     st.markdown("---")
 
@@ -424,7 +425,7 @@ def page_admin():
     if not st.session_state.admin_authed:
         pwd = st.text_input("Admin password", type="password")
         if st.button("Unlock"):
-            if pwd == st.secrets.get("admin_password", "ausiex2024"):
+            if pwd == st.secrets.get("admin_password", "changeme"):
                 st.session_state.admin_authed = True
                 st.rerun()
             else:
@@ -485,7 +486,7 @@ def page_admin():
     st.markdown("---")
     csv = df.to_csv(index=False).encode("utf-8")
     st.download_button("⬇ Download all responses as CSV", csv,
-                       "ausiex_sme_profiles.csv", "text/csv")
+                       "sme_voice_profiles.csv", "text/csv")
 
     if st.button("← Back to survey"):
         st.session_state.page = "survey"
@@ -509,8 +510,8 @@ def page_survey():
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("### ✦ AUSIEX")
-    st.markdown("Voice Intelligence")
+    st.markdown("### ✦ Voice Intelligence")
+    st.markdown("SME Writing Style Survey")
     st.markdown("---")
     if st.button("📝 Take survey"):
         st.session_state.page = "survey"
